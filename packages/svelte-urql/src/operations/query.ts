@@ -9,6 +9,7 @@ import {
   map,
   take,
   share,
+  skipWhile,
   subscribe,
   toPromise,
 } from 'wonka';
@@ -116,7 +117,7 @@ export const query = <T = any, V = object>(
     };
 
     query$.then = (onValue: (result: QueryResult<T>) => any): Promise<any> => {
-      return pipe(result$, take(1), toPromise).then(onValue);
+      return pipe(result$, skipWhile(val => val.fetching || val.stale), take(1), toPromise).then(onValue);
     };
 
     return query$ as any;
