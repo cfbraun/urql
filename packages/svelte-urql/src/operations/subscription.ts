@@ -9,7 +9,6 @@ import {
   map,
   share,
   subscribe,
-  publish,
 } from 'wonka';
 
 import { OperationContext, CombinedError, Operation } from '@urql/core';
@@ -88,8 +87,6 @@ export const subscription = <T = any, R = T, V = object>(
     }, initialState),
     share
   );
-
-  publish(subscriptionResult$);
 
   const subscriptionStore = (
     baseArgs: SubscriptionArguments<V>
